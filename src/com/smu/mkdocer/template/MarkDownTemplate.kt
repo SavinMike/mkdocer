@@ -1,8 +1,5 @@
 package com.smu.mkdocer.template
 
-import com.smu.mkdocer.data.StringParam
-import com.sun.tools.javac.jvm.Code
-
 class MarkDownTemplate : Template {
     override fun mapParams(params: Map<String, String>?): String {
         val builder = StringBuilder()

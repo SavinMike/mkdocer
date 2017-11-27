@@ -1,7 +1,5 @@
 package com.smu.mkdocer.data
 
-import java.util.regex.Pattern
-
 enum class Type {
     CLASS,
     FIELD,

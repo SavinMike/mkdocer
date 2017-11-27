@@ -1,7 +1,5 @@
 package com.smu.mkdocer.data
 
-import java.util.regex.Pattern
-
 sealed class Doc(val declaration: String,
                  val type: Type,
                  val description: String? = null,

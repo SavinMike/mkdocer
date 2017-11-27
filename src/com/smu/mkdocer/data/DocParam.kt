@@ -1,8 +1,6 @@
 package com.smu.mkdocer.data
 
 import com.smu.mkdocer.template.codeBlock
-import com.smu.mkdocer.template.createLink
-import com.smu.mkdocer.template.toLink
 
 sealed class DocParam<out T> {
     abstract val name: Array<String>

@@ -74,7 +74,7 @@ class LinkParam : StringParam(), Escaper {
 
         if (obtainData?.contains("com.pushwoosh.") == true) {
             val find = Regex("com.pushwoosh.([\\w\\d.]+)(\\s+|#)(.*)").find(obtainData)
-            return find?.groupValues?.get(3)?.toLink(find.groupValues[1].createLink()+ ".md")
+            return find?.groupValues?.get(3)?.toLink(find.groupValues[1].createLink() + ".md")
         }
 
         return obtainData?.toLink(obtainData.createLink())
