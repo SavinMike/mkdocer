@@ -1,5 +1,6 @@
 package com.smu.mkdocer.template
 
+import com.smu.mkdocer.PW_ANDROID_PACKAGE
 import com.smu.mkdocer.data.StringParam
 
 interface Escaper {
@@ -72,8 +73,8 @@ class LinkParam : StringParam(), Escaper {
     override fun obtainData(docString: String): String? {
         val obtainData = super.obtainData(docString)
 
-        if (obtainData?.contains("com.pushwoosh.") == true) {
-            val find = Regex("com.pushwoosh.([\\w\\d.]+)(\\s+|#)(.*)").find(obtainData)
+        if (obtainData?.contains(PW_ANDROID_PACKAGE.replace("/",".")) == true) {
+            val find = Regex("${PW_ANDROID_PACKAGE.replace("/",".")}([\\w\\d.]+)(\\s+|#)(.*)").find(obtainData)
             return find?.groupValues?.get(3)?.toLink(find.groupValues[1].createLink() + ".md")
         }
 

@@ -1,7 +1,6 @@
 package com.smu.mkdocer
 
 import com.smu.mkdocer.config.ConfigProvider
-import com.smu.mkdocer.fileprovider.FileProvider
 import com.smu.mkdocer.generator.MarkDownDocFileGenerator
 import com.smu.mkdocer.template.MarkDownTemplate
 import java.io.File

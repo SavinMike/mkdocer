@@ -1,8 +1,8 @@
 package com.smu.mkdocer
 
 import com.smu.mkdocer.config.Config
-import com.smu.mkdocer.excluder.Excluder
-import com.smu.mkdocer.excluder.ExcluderProvider
+import com.smu.mkdocer.excluder.FileChecker
+import com.smu.mkdocer.excluder.FileCheckerProvider
 import com.smu.mkdocer.fileprovider.FileProvider
 import com.smu.mkdocer.generator.DocFileGenerator
 import com.smu.mkdocer.parser.FileParserProvider
@@ -13,7 +13,7 @@ import java.io.File
 class Mkdocer(private val config: Config,
               private val template: Template) {
 
-    private val excluder: Excluder? = ExcluderProvider.createExcluderProvider(config.os)
+    private val fileChecker: FileChecker? = FileCheckerProvider.createFileChecker(config.os, File(config.path))
 
     fun generateDocs(docFileGenerator: DocFileGenerator) {
         val rootFile = File(config.path)
@@ -27,7 +27,7 @@ class Mkdocer(private val config: Config,
         }
 
         if (rootFile.isFile) {
-            if (excluder?.exclude(rootFile) == true) {
+            if (fileChecker?.check(rootFile) == false) {
                 return
             }
             generateDocFile(rootFile, docFileGenerator)
