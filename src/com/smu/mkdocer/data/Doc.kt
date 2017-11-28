@@ -13,6 +13,40 @@ sealed class Doc(val declaration: String,
     abstract val name: String
 }
 
+class ObjectiveCDoc(declaration: String,
+                    type: Type,
+                    description: String? = null,
+                    params: Map<String, String>? = null,
+                    version: String? = null,
+                    author: List<String>? = null,
+                    returnParams: String? = null,
+                    exceptions: List<String>? = null,
+                    deprecated: String? = null) : Doc(declaration, type, description, params, version, author, returnParams, exceptions, deprecated, Language.OBJECTIVE_C) {
+    override val name: String
+        get() {
+            val pattern = type.pattern(language)
+            val matcher = pattern?.first?.find(declaration)
+            return if (matcher != null) {
+                when (type) {
+                    Type.METHOD -> "${matcher.groupValues[pattern.second]}:${generateNameFromParams(matcher.groupValues[pattern.second + 1])}"
+                    else -> matcher.groupValues[pattern.second]
+                }
+            } else {
+                ""
+            }
+        }
+
+    private fun generateNameFromParams(methodParams: String): String {
+        val builder = StringBuilder()
+        val findAll = Regex("\\([\\w\\d\\s*]+\\)[\\w\\d]+(\\s+[^(^:]*:)?")
+                .findAll(methodParams)
+        findAll.forEach { matchResult ->
+            builder.append(matchResult.groupValues[1].trim())
+        }
+        return builder.toString()
+    }
+}
+
 class KotlinDoc(declaration: String,
                 type: Type,
                 description: String? = null,
@@ -21,10 +55,10 @@ class KotlinDoc(declaration: String,
                 author: List<String>? = null,
                 returnParams: String? = null,
                 exceptions: List<String>? = null,
-                deprecated: String? = null) : Doc(declaration, type, description, params, version, author, returnParams, exceptions, deprecated, Language.JAVA) {
+                deprecated: String? = null) : Doc(declaration, type, description, params, version, author, returnParams, exceptions, deprecated, Language.KOTLIN) {
     override val name: String
         get() {
-            val pattern = type.pattern(Language.KOTLIN)
+            val pattern = type.pattern(language)
             val matcher = pattern?.first?.find(declaration)
             return if (matcher != null) {
                 when (type) {
@@ -63,7 +97,7 @@ class JavaDoc(declaration: String,
               deprecated: String? = null) : Doc(declaration, type, description, params, version, author, returnParams, exceptions, deprecated, Language.JAVA) {
     override val name: String
         get() {
-            val pattern = type.pattern(Language.JAVA)
+            val pattern = type.pattern(language)
             val matcher = pattern?.first?.find(declaration)
             return if (matcher != null) {
                 when (type) {
@@ -74,16 +108,6 @@ class JavaDoc(declaration: String,
                 ""
             }
         }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
 
     private fun generateNameFromParams(methodParams: String): String {
         val builder = StringBuilder()

@@ -17,6 +17,18 @@ fun String.getDocType(language: Language): Type? {
     return null
 }
 
+fun String.getDocTypeOrDefault(language: Language): Type {
+    return getDocType(language) ?: language.getDefaultType()
+}
+
+internal fun Language.getDefaultType(): Type {
+    return when (this) {
+        Language.JAVA -> Type.FIELD
+        Language.KOTLIN -> Type.PROPERTY
+        Language.OBJECTIVE_C -> Type.PROPERTY
+    }
+}
+
 fun Type.pattern(language: Language): Pair<Regex, Int>? = when (language) {
 
     Language.JAVA -> when (this) {
@@ -31,5 +43,11 @@ fun Type.pattern(language: Language): Pair<Regex, Int>? = when (language) {
         Type.METHOD -> Pair(Regex("fun ([\\w\\d]+)(\\(.*\\))\\s*(:\\s*[\\w\\d<>?]+)?\\s(=\\s.*)?"), 1)
         else -> null
     }
-    Language.OBJECTIVE_C -> TODO()
+    Language.OBJECTIVE_C -> when (this) {
+
+        Type.CLASS -> Pair(Regex("@(interface|protocol|class)\\s+([\\w\\d]*)(\\s*:\\s*[\\w\\d]*)?"), 2)
+        Type.PROPERTY -> Pair(Regex("@property(\\s\\([\\w\\d,]+\\))\\s+([\\w\\d]+)\\s+(\\*?[\\w\\d]+);"), 4)
+        Type.METHOD -> Pair(Regex("\\s*([+-])\\s*(\\([^(]*\\))([\\w\\d]+)(:(\\(.+\\)[\\w\\d]+(\\s|;)?)*)?"), 3)
+        else -> null
+    }
 }

@@ -1,13 +1,19 @@
 package com.smu.mkdocer
 
 import com.smu.mkdocer.config.Config
+import com.smu.mkdocer.excluder.Excluder
+import com.smu.mkdocer.excluder.ExcluderProvider
+import com.smu.mkdocer.fileprovider.FileProvider
 import com.smu.mkdocer.generator.DocFileGenerator
 import com.smu.mkdocer.parser.FileParserProvider
+import com.smu.mkdocer.parser.getLanguage
 import com.smu.mkdocer.template.Template
 import java.io.File
 
 class Mkdocer(private val config: Config,
               private val template: Template) {
+
+    private val excluder: Excluder? = ExcluderProvider.createExcluderProvider(config.os)
 
     fun generateDocs(docFileGenerator: DocFileGenerator) {
         val rootFile = File(config.path)
@@ -21,6 +27,9 @@ class Mkdocer(private val config: Config,
         }
 
         if (rootFile.isFile) {
+            if (excluder?.exclude(rootFile) == true) {
+                return
+            }
             generateDocFile(rootFile, docFileGenerator)
             docFileGenerator.clear()
         } else {
@@ -32,21 +41,11 @@ class Mkdocer(private val config: Config,
     }
 
     private fun generateDocFile(file: File, docFileGenerator: DocFileGenerator) {
-        val fileParser = FileParserProvider.createFileParser(file)
-
-        if (fileParser == null) {
-            println("Unknown format for file $file")
-            return
-        }
+        val language = file.getLanguage() ?: return
+        val fileParser = FileParserProvider.createFileParser(language)
 
         val docs = fileParser.parseFile(file)
-
-        val subSequence = file.absolutePath.subSequence(file.absolutePath.indexOf("com/pushwoosh/") + "com/pushwoosh/".length, file.absolutePath.indexOf(file.name))
-
-        val parent = File(config.resultPath, subSequence.toString())
-        parent.mkdirs()
-
-        val rootPath = File(parent, "${file.nameWithoutExtension}.txt")
+        val rootPath = File(FileProvider.getFileParent(language, file, config.resultPath), "${file.nameWithoutExtension}.md")
         docs?.forEach { docFileGenerator.generateByDoc(it, template) }
         val text = docFileGenerator.text
         if (text.trim().isNotEmpty()) {

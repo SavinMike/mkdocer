@@ -4,10 +4,7 @@ import com.smu.mkdocer.data.Doc
 import com.smu.mkdocer.template.Template
 
 interface DocFileGenerator {
-    fun generateByDoc(doc: Doc,
-                      template: Template)
-
     val text: String
-
     fun clear()
+    fun generateByDoc(doc: Doc, template: Template)
 }
