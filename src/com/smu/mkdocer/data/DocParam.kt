@@ -1,6 +1,7 @@
 package com.smu.mkdocer.data
 
 import com.smu.mkdocer.template.codeBlock
+import com.smu.mkdocer.template.getMarkdownCode
 
 sealed class DocParam<out T> {
     abstract val name: Array<String>
@@ -41,10 +42,10 @@ sealed class DocParam<out T> {
     }
 }
 
-class CodeParam : StringParam() {
+class CodeParam(private val language: Language) : StringParam() {
 
     override fun obtainData(docString: String): String? {
-        return super.obtainData(docString)?.codeBlock("java")
+        return super.obtainData(docString)?.codeBlock(language.getMarkdownCode())
     }
 
     override fun regex(value: String): Regex {
@@ -95,6 +96,7 @@ class Params : DocParam<Map<String, String>>() {
         return result
     }
 
+    override fun regex(value: String) = Regex("@$value\\s+(.*)(\n)?")
 }
 
 class Author : DocParam<List<String>>() {

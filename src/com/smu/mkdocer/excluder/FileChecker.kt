@@ -53,6 +53,10 @@ class IosChecker(appPath: File) : FileChecker {
 
     override fun check(file: File): Boolean {
 
+        if (publicHeaders.isEmpty()) {
+            return true
+        }
+
         publicHeaders.forEach {
             if ("${file.parentFile.absoluteFile}/${file.name}".endsWith(it)) {
                 return true

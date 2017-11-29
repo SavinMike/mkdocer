@@ -1,4 +1,4 @@
-###  <a name=""></a>
+### NotificationFactory <a name="NotificationFactory"></a>
  Abstract class that is used to customize push notification appearance.
  All NotificationFactory ancestors must be public and must contain public constructor without parameters.
  Application will crash on startup if this requirement is not met.
@@ -6,11 +6,9 @@
  <p>
  
      ```
-
-         {@literal <}meta-data
+{@literal <}meta-data
              android:name="com.pushwoosh.notification_factory"
              android:value="com.your.package.YourNotificationFactory"{@literal /}{@literal >}
-     
 ```
  
 
@@ -18,7 +16,7 @@
 public abstract class NotificationFactory 
 ```
 ---
-###  <a name=""></a>
+### onGenerateNotification(PushMessage) <a name="onGenerateNotification(PushMessage)"></a>
  Generates notification using PushMessage data.
 
   
@@ -39,7 +37,7 @@ public abstract Notification onGenerateNotification(@NonNull PushMessage data)
 public Intent getNotificationIntent(@NonNull PushMessage data) 
 ```
 ---
-###  <a name=""></a>
+### addCancel(Notification) <a name="addCancel(Notification)"></a>
  Makes notification cancellable
 
  
@@ -48,7 +46,7 @@ public Intent getNotificationIntent(@NonNull PushMessage data)
 protected final void addCancel(@NonNull Notification notification) 
 ```
 ---
-###  <a name=""></a>
+### addLED(Notification, Integer, int, int) <a name="addLED(Notification,Integer,int,int)"></a>
  Adds led blinking to notification
 
     
@@ -61,7 +59,7 @@ protected final void addCancel(@NonNull Notification notification)
 protected final void addLED(@NonNull Notification notification, @Nullable Integer color, int ledOnMs, int ledOffMs) 
 ```
 ---
-###  <a name=""></a>
+### addVibration(Notification, boolean) <a name="addVibration(Notification,boolean)"></a>
  Adds vibration to notification.
 
   
@@ -71,7 +69,7 @@ protected final void addLED(@NonNull Notification notification, @Nullable Intege
 protected final void addVibration(@NonNull Notification notification, boolean vibration) 
 ```
 ---
-###  <a name=""></a>
+### addSound(Notification, String) <a name="addSound(Notification,String)"></a>
  Adds sound to notification.
 
                        If parameter is null or does not exists default system sound will be played.
@@ -83,7 +81,7 @@ protected final void addVibration(@NonNull Notification notification, boolean vi
 protected final void addSound(@NonNull Notification notification, @Nullable String sound) 
 ```
 ---
-###  <a name=""></a>
+### getApplicationContext() <a name="getApplicationContext()"></a>
  
 * **Return Value** - Application context.
 ```
@@ -91,7 +89,7 @@ protected final void addSound(@NonNull Notification notification, @Nullable Stri
 protected final Context getApplicationContext() 
 ```
 ---
-###  <a name=""></a>
+### getContentFromHtml(String) <a name="getContentFromHtml(String)"></a>
  Converts string with html formatting to CharSequence.
 
   
@@ -101,7 +99,7 @@ protected final Context getApplicationContext()
 protected final CharSequence getContentFromHtml(String content) 
 ```
 ---
-###  <a name=""></a>
+### addChannel(PushMessage) <a name="addChannel(PushMessage)"></a>
  Create, if not exist, new notification channel from pushMessage.
 
   

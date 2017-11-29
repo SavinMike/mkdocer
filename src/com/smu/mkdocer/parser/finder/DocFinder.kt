@@ -11,6 +11,7 @@ class DocFinder(language: Language) {
     }
 
     private var isCommentBody = false
+    private var isSingleCommentBody = false
 
     private var _commentBody = StringBuilder()
     val commentBody: String
@@ -25,8 +26,9 @@ class DocFinder(language: Language) {
         if (trimLine.startsWith("/**")) {
             isCommentBody = true
         }
+        isSingleCommentBody = trimLine.startsWith("//!")
 
-        if (isCommentBody) {
+        if (isCommentBody || isSingleCommentBody) {
             if (_commentBody.isNotEmpty()) {
                 _commentBody.append("\n")
             }
@@ -38,7 +40,7 @@ class DocFinder(language: Language) {
             return null
         }
 
-        if (!isCommentBody && _commentBody.isNotEmpty()) {
+        if (!(isCommentBody || isSingleCommentBody) && _commentBody.isNotEmpty()) {
             isCommentDeclaration = true
         }
 
@@ -68,6 +70,7 @@ class DocFinder(language: Language) {
         result = result.removePrefix("/*")
         result = result.removePrefix("*/")
         result = result.removePrefix("*")
+        result = result.removePrefix("//!")
         return result
     }
 }

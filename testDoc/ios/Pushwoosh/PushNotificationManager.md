@@ -2,7 +2,6 @@
 `PushNotificationDelegate` protocol defines the methods that can be implemented in the delegate of the `PushNotificationManager` class' singleton object.
 These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
 These methods implementation allows to react on these events properly.
-
 ```
 @protocol PushNotificationDelegate
 ```
@@ -51,8 +50,6 @@ sound = default;
 };
 p = 1pb;
 }
-
-
 * **pushManager** - The push manager that received the remote notification.
 * **pushNotification** - A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
 ```
@@ -90,8 +87,6 @@ Dictionary example:
 Country = ru;
 Language = ru;
 }
-
-
 * **tags** - Dictionary representation of received tags.
 ```
 - (void)onTagsReceived:(NSDictionary *)tags
@@ -126,7 +121,6 @@ Tells the delegate that In-App with specified code has been displayed
 ---
 ### PWTags <a name="PWTags"></a>
 `PWTags` class encapsulates the methods for creating tags parameters for sending them to the server.
-
 ```
 @interface PWTags : NSObject
 ```
@@ -145,59 +139,51 @@ nil];
 [[PushNotificationManager pushManager] setTags:tags];
 
 
-
+@return Dictionary, that needs to be sent as the value for the tag
 * **delta** - Difference that needs to be applied to the tag's counter.
-* **Return Value** - Dictionary, that needs to be sent as the value for the tag
 ```
 + (NSDictionary *)incrementalTagWithInteger:(NSInteger)delta
 ```
 ---
 ### PushNotificationManager <a name="PushNotificationManager"></a>
 `PushNotificationManager` class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
-
 ```
-@interface PushNotificationManager : NSObject 
+@interface PushNotificationManager : NSObject
 ```
 ---
-###  <a name=""></a>
+### *appCode <a name="*appCode"></a>
 Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`
-
 ```
 @property (nonatomic, copy, readonly) NSString *appCode
 ```
 ---
-###  <a name=""></a>
+### *appName <a name="*appName"></a>
 Application name. Usually retrieved automatically from Info.plist bundle name (CFBundleDisplayName). Could be used to override bundle name. In addition could be set in Info.plist as `Pushwoosh_APPNAME` parameter.
-
 ```
 @property (nonatomic, copy, readonly) NSString *appName
 ```
 ---
-###  <a name=""></a>
+### *delegate <a name="*delegate"></a>
 `PushNotificationDelegate` protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
 Pushwoosh Runtime sets it to ApplicationDelegate by default
-
 ```
 @property (nonatomic, weak) NSObject<PushNotificationDelegate> *delegate
 ```
 ---
-###  <a name=""></a>
+### showPushnotificationAlert <a name="showPushnotificationAlert"></a>
 Show push notifications alert when push notification is received while the app is running, default is `YES`
-
 ```
 @property (nonatomic, assign) BOOL showPushnotificationAlert
 ```
 ---
-###  <a name=""></a>
+### *launchNotification <a name="*launchNotification"></a>
 Returns push notification payload if the app was started in response to push notification or null otherwise
-
 ```
 @property (nonatomic, copy, readonly) NSDictionary *launchNotification
 ```
 ---
-###  <a name=""></a>
+### notificationCenterDelegate <a name="notificationCenterDelegate"></a>
 Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10
-
 ```
 @property (nonatomic, strong, readonly) id<UNUserNotificationCenterDelegate> notificationCenterDelegate
 ```
@@ -214,8 +200,7 @@ Initializes PushNotificationManager. Usually called by Pushwoosh Runtime interna
 ### pushManager: <a name="pushManager:"></a>
 Returns an object representing the current push manager.
 
-
-* **Return Value** - A singleton object that represents the push manager.
+@return A singleton object that represents the push manager.
 ```
 + (PushNotificationManager *)pushManager
 ```
@@ -223,28 +208,24 @@ Returns an object representing the current push manager.
 ### registerForPushNotifications: <a name="registerForPushNotifications:"></a>
 Registers for push notifications. By default registeres for "UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert" flags.
 Automatically detects if you have "newsstand-content" in "UIBackgroundModes" and adds "UIRemoteNotificationTypeNewsstandContentAvailability" flag.
-
 ```
 - (void)registerForPushNotifications
 ```
 ---
 ### unregisterForPushNotifications: <a name="unregisterForPushNotifications:"></a>
 Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.
-
 ```
 - (void)unregisterForPushNotifications
 ```
 ---
 ### initWithApplicationCode:appName: <a name="initWithApplicationCode:appName:"></a>
 Deprecated. Use initializeWithAppCode:appName: method class
-
 ```
 - (instancetype)initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName __attribute__((deprecated))
 ```
 ---
 ### initWithApplicationCode:navController:appName: <a name="initWithApplicationCode:navController:appName:"></a>
 Deprecated. Use initializeWithAppCode:appName: method class
-
 ```
 - (id)initWithApplicationCode:(NSString *)appCode navController:(UIViewController *)navController appName:(NSString *)appName __attribute__((deprecated))
 ```
@@ -260,14 +241,12 @@ Sends geolocation to the server for GeoFencing push technology. Called internall
 ---
 ### startLocationTracking: <a name="startLocationTracking:"></a>
 Start location tracking.
-
 ```
 - (void)startLocationTracking
 ```
 ---
 ### stopLocationTracking: <a name="stopLocationTracking:"></a>
 Stops location tracking
-
 ```
 - (void)stopLocationTracking
 ```
@@ -294,14 +273,12 @@ nil];
 ---
 ### setTags:withCompletion: <a name="setTags:withCompletion:"></a>
 Send tags to server with completion block. If setTags succeeds competion is called with nil argument. If setTags fails completion is called with error.
-
 ```
 - (void)setTags:(NSDictionary *)tags withCompletion:(void (^)(NSError *error))completion
 ```
 ---
 ### loadTags: <a name="loadTags:"></a>
 Get tags from the server. Calls delegate method `onTagsReceived:` or `onTagsFailedToReceive:` depending on the results.
-
 ```
 - (void)loadTags
 ```
@@ -325,7 +302,6 @@ Language = ru;
 ---
 ### sendAppOpen: <a name="sendAppOpen:"></a>
 Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime.
-
 ```
 - (void)sendAppOpen
 ```
@@ -370,8 +346,7 @@ Tracks individual in-app purchase. See recommended `sendSKPaymentTransactions:` 
 ### getPushToken: <a name="getPushToken:"></a>
 Gets current push token.
 
-
-* **Return Value** - Current push token. May be nil if no push token is available yet.
+@return Current push token. May be nil if no push token is available yet.
 ```
 - (NSString *)getPushToken
 ```
@@ -380,8 +355,7 @@ Gets current push token.
 Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
 This is identifierForVendor for iOS >= 7.
 
-
-* **Return Value** - Unique device identifier.
+@return Unique device identifier.
 ```
 - (NSString *)getHWID
 ```
@@ -437,7 +411,6 @@ NSLog(@"%@", customData);
 ---
 ### getCustomPushDataAsNSDict: <a name="getCustomPushDataAsNSDict:"></a>
 The same as getCustomPushData but returns NSDictionary rather than JSON string (converts JSON string into NSDictionary).
-
 ```
 - (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)pushNotification
 ```
@@ -465,14 +438,12 @@ type = 0;
 }
 
 Note: In the latter example "enabled" field means that device can receive push notification but could not display alerts (ex: silent push)
-
 ```
 + (NSMutableDictionary *)getRemoteNotificationStatus
 ```
 ---
 ### clearNotificationCenter: <a name="clearNotificationCenter:"></a>
 Clears the notifications from the notification center.
-
 ```
 + (void)clearNotificationCenter
 ```
@@ -482,7 +453,6 @@ Set User indentifier. This could be Facebook ID, username or email, or any other
 This allows data and events to be matched across multiple user devices.
 
 Deprecated. Use PWInAppManager setUserId method instead
-
 ```
 - (void)setUserId:(NSString *)userId __attribute__ ((deprecated));
 ```
@@ -492,7 +462,6 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 
 
 Deprecated. Use PWInAppManager mergeUserId method instead
-
 * **oldUserId** - source user
 * **newUserId** - destination user
 * **doMerge** - if false all events for oldUserId are removed, if true all events for oldUserId are moved to newUserId
@@ -511,7 +480,6 @@ Example:
 
 
 Deprecated. Use PWInAppManager postEvent method instead
-
 * **event** - name of the event
 * **attributes** - NSDictionary of event attributes
 * **completion** - function to call after posting event
@@ -523,7 +491,6 @@ Deprecated. Use PWInAppManager postEvent method instead
 See `postEvent:withAttributes:completion:`
 
 Deprecated. Use PWInAppManager postEvent method instead
-
 ```
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes __attribute__ ((deprecated))
 ```

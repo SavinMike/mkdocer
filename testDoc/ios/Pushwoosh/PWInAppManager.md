@@ -23,56 +23,48 @@ ObjC.nativeCall("exampleString", function(str) {
 console.log(str);
 });
 ```
-
 ```
 @protocol PWJavaScriptInterface
 ```
 ---
 ### onWebViewStartLoad: <a name="onWebViewStartLoad:"></a>
 Tells the delegate that In-App Message load stated
-
 ```
 - (void)onWebViewStartLoad:(UIWebView*)webView
 ```
 ---
 ### onWebViewFinishLoad: <a name="onWebViewFinishLoad:"></a>
 Tells the delegate that In-App Message load finished
-
 ```
 - (void)onWebViewFinishLoad:(UIWebView*)webView
 ```
 ---
 ### onWebViewStartClose: <a name="onWebViewStartClose:"></a>
 Tells the delegate that In-App Message is closing
-
 ```
 - (void)onWebViewStartClose:(UIWebView*)webView
 ```
 ---
 ### PWJavaScriptCallback <a name="PWJavaScriptCallback"></a>
 `PWJavaScriptCallback` is a representation of Javascript function
-
 ```
 @interface PWJavaScriptCallback : NSObject
 ```
 ---
 ###  <a name=""></a>
 Invokes callback with no arguments
-
 ```
 - (NSString*) execute
 ```
 ---
 ###  <a name=""></a>
 Invokes callback with one argument
-
 ```
 - (NSString*) executeWithParam: (NSString*) param
 ```
 ---
 ###  <a name=""></a>
 Invokes callback with multiple arguments
-
 ```
 - (NSString*) executeWithParams: (NSArray*) params
 ```
@@ -80,7 +72,6 @@ Invokes callback with multiple arguments
 ### setUserId: <a name="setUserId:"></a>
 Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
 This allows data and events to be matched across multiple user devices.
-
 ```
 - (void)setUserId:(NSString *)userId
 ```
@@ -101,7 +92,7 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
 
 Example:
-```java
+```objC
 [[PWInAppManager sharedManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
 [[PWInAppManager sharedManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
 
@@ -116,14 +107,12 @@ Example:
 ---
 ### postEvent:withAttributes: <a name="postEvent:withAttributes:"></a>
 See `postEvent:withAttributes:completion:`
-
 ```
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes
 ```
 ---
 ### addJavascriptInterface: <a name="addJavascriptInterface:"></a>
 Adds javascript interface for In-App Messages. Interface will be accessible from javascript as object with specified `name` and functions defined in `interface` class.
-
 ```
 - (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface>*)interface withName:(NSString*)name
 ```

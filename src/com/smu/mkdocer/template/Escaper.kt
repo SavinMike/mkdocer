@@ -41,7 +41,7 @@ abstract class HtmlBlockEscaper(private val name: String = "") : Escaper {
 class PreEscaper : HtmlBlockEscaper("pre") {
     override fun escape(docString: String): String {
         return escape(docString, { matcher, string ->
-            string.replace(matcher.groupValues[0], matcher.groupValues[1])
+            string.replace(matcher.groupValues[0], matcher.groupValues[1].trim())
         })
     }
 }
@@ -49,7 +49,7 @@ class PreEscaper : HtmlBlockEscaper("pre") {
 class CodeEscaper : HtmlBlockEscaper("code") {
     override fun escape(docString: String): String {
         return escape(docString, { matchResult, string ->
-            string.replace(matchResult.groupValues[0], matchResult.groupValues[1].codeBlock())
+            string.replace(matchResult.groupValues[0], matchResult.groupValues[1].trim().codeBlock())
         })
     }
 }

@@ -1,5 +1,7 @@
 package com.smu.mkdocer.template
 
+import com.smu.mkdocer.data.Language
+
 class MarkDownTemplate : Template {
     override fun mapParams(params: Map<String, String>?): String {
         val builder = StringBuilder()
@@ -22,6 +24,12 @@ class MarkDownTemplate : Template {
     override fun mapDeclaration(declaration: String?) = declaration?.codeBlock() ?: ""
 
     override fun mapDescription(description: String?) = description?.escapeToMarkdown() ?: ""
+}
+
+fun Language.getMarkdownCode() = when (this) {
+    Language.JAVA -> "java"
+    Language.KOTLIN -> "kotlin"
+    Language.OBJECTIVE_C -> "objC"
 }
 
 fun String.toKeyList(key: String) = "* ${key.toBold()} - ${this.escapeToMarkdown()}"

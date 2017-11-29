@@ -31,8 +31,7 @@ public class Pushwoosh
  Example:
  
  ```
-
- {@literal @}Override
+{@literal @}Override
    public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
 
@@ -41,7 +40,6 @@ public class Pushwoosh
            showMessage("Push message is " + getIntent().getExtras().getString(Pushwoosh.PUSH_RECEIVE_EVENT));
        }
    }
- 
 ```
  
 

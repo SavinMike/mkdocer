@@ -13,7 +13,7 @@ open class FileParser(private val language: Language) {
             docFinder.findComment(it)
                     ?.takeIf {
                         it.also {
-                            result.add(generateDoc(docFinder.commentDeclaration, docFinder.commentBody))
+                            result.add(generateDoc(docFinder.commentDeclaration.trim(), docFinder.commentBody.trim()))
                             docFinder.clear()
                         }
                     }
@@ -33,7 +33,7 @@ open class FileParser(private val language: Language) {
         val exceptions = mutableListOf<String>()
         var deprecated: String? = null
 
-        setOf(Params(), Author(), Version(), Return(), Throws(), Deprecated(), CodeParam(), SeeParam())
+        setOf(Params(), Author(), Version(), Return(), Throws(), Deprecated(), CodeParam(language), SeeParam())
                 .forEach {
                     when (it) {
                         is Params -> paramsData.putAll(it.obtainData(description))

@@ -6,11 +6,9 @@
  <p>
  
      ```
-
-         {@literal <}meta-data
+{@literal <}meta-data
              android:name="com.pushwoosh.notification_service_extension"
              android:value="com.your.package.YourNotificationServiceExtension"{@literal /}{@literal >}
-     
 ```
  
 
@@ -37,7 +35,7 @@ public final void handleMessage(Bundle pushBundle)
 public final void handleNotification(Bundle pushBundle) 
 ```
 ---
-###  <a name=""></a>
+### onMessageOpened(PushMessage) <a name="onMessageOpened(PushMessage)"></a>
  Callback method which calling when push opened
 
  
@@ -47,7 +45,7 @@ public final void handleNotification(Bundle pushBundle)
 protected void onMessageOpened(final PushMessage message) 
 ```
 ---
-###  <a name=""></a>
+### onMessageReceived(PushMessage) <a name="onMessageReceived(PushMessage)"></a>
  Extension method for push notification receive handling
 
   
@@ -58,7 +56,7 @@ protected void onMessageOpened(final PushMessage message)
 protected boolean onMessageReceived(PushMessage data) 
 ```
 ---
-###  <a name=""></a>
+### startActivityForPushMessage(PushMessage) <a name="startActivityForPushMessage(PushMessage)"></a>
  Extension method for push notification open handling.
  By default starts Launcher Activity or Activity marked with @{applicationId}.MESSAGE intent filter.
 
@@ -69,14 +67,14 @@ protected boolean onMessageReceived(PushMessage data)
 protected void startActivityForPushMessage(PushMessage message) 
 ```
 ---
-###  <a name=""></a>
+### isAppOnForeground() <a name="isAppOnForeground()"></a>
  
 * **Return Value** - true if application is currently in focus.
 ```
 protected boolean isAppOnForeground() 
 ```
 ---
-###  <a name=""></a>
+### getApplicationContext() <a name="getApplicationContext()"></a>
  
 * **Return Value** - Application context.
 ```

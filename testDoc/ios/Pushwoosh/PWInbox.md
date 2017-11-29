@@ -1,29 +1,37 @@
-###  <a name=""></a>
+### PWInboxMessagesDidUpdateNotification <a name="PWInboxMessagesDidUpdateNotification"></a>
 The notification arriving on the Inbox messages renewal
-
 ```
 FOUNDATION_EXPORT NSString * const PWInboxMessagesDidUpdateNotification
 ```
 ---
-###  <a name=""></a>
+### PWInboxMessagesDidReceiveInPushNotification <a name="PWInboxMessagesDidReceiveInPushNotification"></a>
 The notification arriving when a push message is added to Inbox
-
 ```
 FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification
 ```
 ---
-###  <a name=""></a>
+### PWInboxMessageType <a name="PWInboxMessageType"></a>
 The Inbox message type. Plain = without any action, Richmedia = contains a Rich media page, URL = contains remote URL, Deeplink = contains Deeplink
-
 ```
-typedef NS_ENUM(NSInteger, PWInboxMessageType) 
+typedef NS_ENUM(NSInteger, PWInboxMessageType)
 ```
 ---
 ### PWInboxMessageProtocol <a name="PWInboxMessageProtocol"></a>
 `PWInboxMessageProtocol` The protocol describing the Inbox message.
-
 ```
 @protocol PWInboxMessageProtocol <NSObject>
+```
+---
+### isRead <a name="isRead"></a>
+Inbox Message which is read, see + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes
+```
+@property (readonly, nonatomic) BOOL isRead
+```
+---
+### isActionPerformed <a name="isActionPerformed"></a>
+Action of the Inbox Message is performed (if true, an action was performed in the Inbox see + (void)performActionForMessageWithCode:(NSString *)code or an action was performed on the push tap )
+```
+@property (readonly, nonatomic) BOOL isActionPerformed
 ```
 ---
 ### messagesWithNoActionPerformedCountWithCompletion: <a name="messagesWithNoActionPerformedCountWithCompletion:"></a>
