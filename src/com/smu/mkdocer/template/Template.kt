@@ -16,5 +16,4 @@ interface Template {
     fun mapExceptions(value: List<String>?): String
 
     fun mapDeprecated(value: List<String>?): String
-
 }

@@ -13,10 +13,10 @@ import java.io.File
 class Mkdocer(private val config: Config,
               private val template: Template) {
 
-    private val fileChecker: FileChecker? = FileCheckerProvider.createFileChecker(config.os, File(config.path))
+    private val fileChecker: FileChecker? = FileCheckerProvider.createFileChecker(config.os, File(config.inputPath))
 
     fun generateDocs(docFileGenerator: DocFileGenerator) {
-        val rootFile = File(config.path)
+        val rootFile = File(config.inputPath)
         generateDocs(rootFile, docFileGenerator)
     }
 
@@ -45,7 +45,7 @@ class Mkdocer(private val config: Config,
         val fileParser = FileParserProvider.createFileParser(language)
 
         val docs = fileParser.parseFile(file)
-        val rootPath = File(FileProvider.getFileParent(language, file, config.resultPath), "${file.nameWithoutExtension}.md")
+        val rootPath = File(FileProvider.getFileParent(language, file, config.outputPath), "${file.nameWithoutExtension}.md")
         docs?.forEach { docFileGenerator.generateByDoc(it, template) }
         val text = docFileGenerator.text
         if (text.trim().isNotEmpty()) {

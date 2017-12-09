@@ -76,6 +76,15 @@ open class FileParser(private val language: Language) {
                     exceptions = exceptions,
                     deprecated = deprecated,
                     description = description)
+            Language.ACTION_SCRIPT -> ActionScriptDoc(declaration = docDeclaration,
+                    type = type,
+                    params = paramsData,
+                    author = authorData,
+                    version = version,
+                    returnParams = returnParams,
+                    exceptions = exceptions,
+                    deprecated = deprecated,
+                    description = description)
         }
     }
 }
@@ -88,5 +97,6 @@ fun File.getLanguage(): Language? = when (extension) {
     "kt" -> Language.KOTLIN
     "java" -> Language.JAVA
     "h" -> Language.OBJECTIVE_C
+    "as" -> Language.ACTION_SCRIPT
     else -> null
 }

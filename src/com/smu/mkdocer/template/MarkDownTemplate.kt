@@ -6,7 +6,10 @@ class MarkDownTemplate : Template {
     override fun mapParams(params: Map<String, String>?): String {
         val builder = StringBuilder()
         params?.entries
-                ?.forEach { builder.append(it.value.toKeyList(it.key)).append("\n") }
+                ?.forEach {
+                    builder.append(it.value.toKeyList(it.key))
+                            .append("\n")
+                }
 
         return builder.toString()
     }
@@ -30,6 +33,7 @@ fun Language.getMarkdownCode() = when (this) {
     Language.JAVA -> "java"
     Language.KOTLIN -> "kotlin"
     Language.OBJECTIVE_C -> "objC"
+    Language.ACTION_SCRIPT -> "as3"
 }
 
 fun String.toKeyList(key: String) = "* ${key.toBold()} - ${this.escapeToMarkdown()}"

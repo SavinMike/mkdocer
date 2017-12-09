@@ -10,7 +10,7 @@ fun main(params: Array<String>) {
     val mkdocer = Mkdocer(config, MarkDownTemplate())
 
     mkdocer.generateDocs(MarkDownDocFileGenerator())
-    removeEmptyFolders(File(config.resultPath))
+    removeEmptyFolders(File(config.outputPath))
 }
 
 fun removeEmptyFolders(file: File) {

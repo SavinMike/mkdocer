@@ -71,5 +71,6 @@ object FileCheckerProvider {
     fun createFileChecker(os: OS, appPath: File): FileChecker? = when (os) {
         OS.ANDROID -> AndroidFileChecker(appPath)
         OS.IOS -> IosChecker(appPath)
+        else -> null
     }
 }

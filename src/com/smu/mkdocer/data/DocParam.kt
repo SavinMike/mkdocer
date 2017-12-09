@@ -22,7 +22,8 @@ sealed class DocParam<out T> {
     }
 
     protected open fun regexGroupId() = 1
-    protected open fun regex(value: String) = Regex("@$value\\s+(.*)(\n)")
+
+    protected open fun regex(value: String) = Regex("@$value\\s+(.*)(\n)?")
 
     fun removeFromString(docString: String): String {
         var result: String = docString
@@ -86,17 +87,16 @@ class Params : DocParam<Map<String, String>>() {
     override fun obtainData(docString: String): Map<String, String> {
         val result = mutableMapOf<String, String>()
         obtainData(docString, {
-            Regex("\\s*([\\w\\d]+)\\s+(.*)").find(it)
+            Regex("\\s*([\\w\\d]+)\\s+-?\\s*(.*)").find(it)
                     ?.takeIf { it.groupValues.size >= 3 }
                     ?.let {
-                        result.put(it.groupValues[1], it.groupValues[2])
+                        result.put(it.groupValues[1], it.groupValues[2]
+                                .trim())
                     }
         })
 
         return result
     }
-
-    override fun regex(value: String) = Regex("@$value\\s+(.*)(\n)?")
 }
 
 class Author : DocParam<List<String>>() {

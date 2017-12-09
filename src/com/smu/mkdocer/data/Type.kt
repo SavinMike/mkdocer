@@ -27,6 +27,7 @@ internal fun Language.getDefaultType(): Type {
         Language.JAVA -> Type.FIELD
         Language.KOTLIN -> Type.PROPERTY
         Language.OBJECTIVE_C -> Type.PROPERTY
+        Language.ACTION_SCRIPT -> Type.METHOD
     }
 }
 
@@ -55,4 +56,12 @@ fun Type.pattern(language: Language): Pair<Regex, Int>? = when (language) {
         Type.ENUM -> Pair(Regex("(typedef )?\\s*NS_ENUM\\s*\\(.*\\s*,\\s*(.*)\\)"), 2)
         Type.FIELD -> Pair(Regex("(FOUNDATION_EXPORT )?\\s*([\\w\\d]+)(\\s*\\*\\s*|\\s+)(const\\s+)?([\\w\\d]+)"), 5)
     }
+
+    Language.ACTION_SCRIPT -> when (this) {
+        Type.CLASS -> Pair(Regex("public(\\sstatic)?(\\sabstract)?(\\sfinal)?\\s+(class|interface)\\s+([\\w\\d]+(<.*>)?)(\\s+extends\\s+[\\w\\d]+(<.*>)?)?(\\s+implements\\s+[\\w\\d]+(<.*>)?)?\\s*\\{?"), 5)
+        Type.FIELD -> Pair(Regex("public(\\sstatic)?(var|val) ([\\w\\d]+)\\s*(:\\s[\\w\\d<>?]+)?\\s(=\\s.*)?"), 3)
+        Type.METHOD -> Pair(Regex("^\\s*(public|protected)?(\\sstatic)?(\\sabstract)?(\\sfinal)? function(\\sget)? ([\\w\\d]+)(\\(.*\\))(\\s*:\\s*(.*)|$)"), 6)
+        else -> null
+    }
+
 }

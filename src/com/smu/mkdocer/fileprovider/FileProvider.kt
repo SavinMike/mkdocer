@@ -31,12 +31,23 @@ internal class IosHelper : FileHelper {
     }
 }
 
+internal class DefaultHelper : FileHelper {
+    override fun generateParentOutputFile(file: File, resultPath: String): File {
+        val parent = File(resultPath)
+        parent.mkdirs()
+
+        return parent
+    }
+}
+
+
 
 object FileProvider {
-    fun createFileHelper(language: Language) = when (language) {
+    private fun createFileHelper(language: Language) = when (language) {
         Language.JAVA -> AndroidHelper()
         Language.KOTLIN -> AndroidHelper()
         Language.OBJECTIVE_C -> IosHelper()
+        Language.ACTION_SCRIPT -> DefaultHelper()
     }
 
     fun getFileParent(language: Language, file: File, resultPath: String) = createFileHelper(language).generateParentOutputFile(file, resultPath)

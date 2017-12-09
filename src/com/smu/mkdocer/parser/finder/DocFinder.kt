@@ -8,6 +8,7 @@ class DocFinder(language: Language) {
         Language.JAVA -> JavaDeclarationHelper()
         Language.KOTLIN -> KotlinDeclarationHelper()
         Language.OBJECTIVE_C -> ObjectiveCDeclarationHelper()
+        Language.ACTION_SCRIPT -> JavaDeclarationHelper()
     }
 
     private var isCommentBody = false
