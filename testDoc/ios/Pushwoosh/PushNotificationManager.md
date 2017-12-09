@@ -139,8 +139,9 @@ nil];
 [[PushNotificationManager pushManager] setTags:tags];
 
 
-@return Dictionary, that needs to be sent as the value for the tag
+
 * **delta** - Difference that needs to be applied to the tag's counter.
+* **Return Value** - Dictionary, that needs to be sent as the value for the tag
 ```
 + (NSDictionary *)incrementalTagWithInteger:(NSInteger)delta
 ```
@@ -200,7 +201,8 @@ Initializes PushNotificationManager. Usually called by Pushwoosh Runtime interna
 ### pushManager: <a name="pushManager:"></a>
 Returns an object representing the current push manager.
 
-@return A singleton object that represents the push manager.
+
+* **Return Value** - A singleton object that represents the push manager.
 ```
 + (PushNotificationManager *)pushManager
 ```
@@ -346,7 +348,8 @@ Tracks individual in-app purchase. See recommended `sendSKPaymentTransactions:` 
 ### getPushToken: <a name="getPushToken:"></a>
 Gets current push token.
 
-@return Current push token. May be nil if no push token is available yet.
+
+* **Return Value** - Current push token. May be nil if no push token is available yet.
 ```
 - (NSString *)getPushToken
 ```
@@ -355,7 +358,8 @@ Gets current push token.
 Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
 This is identifierForVendor for iOS >= 7.
 
-@return Unique device identifier.
+
+* **Return Value** - Unique device identifier.
 ```
 - (NSString *)getHWID
 ```

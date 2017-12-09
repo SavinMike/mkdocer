@@ -1,16 +1,14 @@
 ### PushManagerJSInterface <a name="PushManagerJSInterface"></a>
- PushManager inApps javascript interface
+PushManager inApps javascript interface
  Instance of this class is accessible from inApp javascript sources by using "pushManager" variable
-
 ```
-public class PushManagerJSInterface 
+public class PushManagerJSInterface
 ```
 ---
-### postEvent(String) <a name="postEvent(String)"></a>
- Send /postEvent request
+###  <a name=""></a>
+Send /postEvent request
  <p>
  js example:
- 
  ```java
  var successCallback = function () {
  		console.log("Post event success");
@@ -35,7 +33,6 @@ public class PushManagerJSInterface
  	}));
  
 ```
- 
 
     
 * **event** - Event name for postEvent request
@@ -44,46 +41,39 @@ public class PushManagerJSInterface
 * **error** - Error callback function name (optional)
 ```
 @JavascriptInterface
-public void postEvent(String blob) 
+public void postEvent(String blob)
 ```
 ---
-### closeInApp() <a name="closeInApp()"></a>
- Closes current In-App
+###  <a name=""></a>
+Closes current In-App
  <p>
  js example:
- 
  ```java
     pushManager.closeInApp();
  
 ```
- 
-
 ```
 @JavascriptInterface
-public void closeInApp() 
+public void closeInApp()
 ```
 ---
-### registerForPushNotifications() <a name="registerForPushNotifications()"></a>
- send /registerDevice request
+###  <a name=""></a>
+send /registerDevice request
  <p>
  js example:
- 
  ```java
     pushManager.registerForPushNotifications();
  
 ```
- 
-
 ```
 @JavascriptInterface
-public void registerForPushNotifications() 
+public void registerForPushNotifications()
 ```
 ---
-### sendTags(String) <a name="sendTags(String)"></a>
- send /sendTags request
+###  <a name=""></a>
+send /sendTags request
  <p>
  js example:
- 
  ```java
     pushManager.sendTags(JSON.stringify({
     	"IntTag" : 42,
@@ -93,10 +83,8 @@ public void registerForPushNotifications()
     }));
  
 ```
- 
-
 ```
 @JavascriptInterface
-public void sendTags(String tags) 
+public void sendTags(String tags)
 ```
 ---

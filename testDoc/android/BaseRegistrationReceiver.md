@@ -1,14 +1,14 @@
 ### BaseRegistrationReceiver <a name="BaseRegistrationReceiver"></a>
- BasePushMessageReceiver class is used to handle push registration/unregistration events.
+BasePushMessageReceiver class is used to handle push registration/unregistration events.
 
  
 ```
 @Deprecated
-public abstract class BaseRegistrationReceiver extends BroadcastReceiver 
+public abstract class BaseRegistrationReceiver extends BroadcastReceiver
 ```
 ---
 ### onRegisterActionReceive(Context, Intent) <a name="onRegisterActionReceive(Context,Intent)"></a>
- Push registration callback. Intent extras contain one of the following keys: 
+Push registration callback. Intent extras contain one of the following keys: 
 
 
  [PushManager#UNREGISTER_ERROR_EVENT](PushManager.md#UNREGISTER_ERROR_EVENT) - indicates successful registration. Intent extras contain push notification token under this key.

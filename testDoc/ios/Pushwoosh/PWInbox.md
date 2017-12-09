@@ -38,7 +38,7 @@ Action of the Inbox Message is performed (if true, an action was performed in th
 Get the number of the PWInboxMessageProtocol with no action performed
 
 
-* **completion** - - if successful, return the number of the InboxMessages with no action performed. Otherwise, return error
+* **completion** - if successful, return the number of the InboxMessages with no action performed. Otherwise, return error
 ```
 + (void)messagesWithNoActionPerformedCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion
 ```
@@ -47,7 +47,7 @@ Get the number of the PWInboxMessageProtocol with no action performed
 Get the number of the unread PWInboxMessageProtocol
 
 
-* **completion** - - if successful, return the number of the unread InboxMessages. Otherwise, return error
+* **completion** - if successful, return the number of the unread InboxMessages. Otherwise, return error
 ```
 + (void)unreadMessagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion
 ```
@@ -56,7 +56,7 @@ Get the number of the unread PWInboxMessageProtocol
 Get the total number of the PWInboxMessageProtocol
 
 
-* **completion** - - if successful, return the total number of the InboxMessages. Otherwise, return error
+* **completion** - if successful, return the total number of the InboxMessages. Otherwise, return error
 ```
 + (void)messagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion
 ```
@@ -65,7 +65,7 @@ Get the total number of the PWInboxMessageProtocol
 Get the collection of the PWInboxMessageProtocol that the user received
 
 
-* **completion** - - if successful, return the collection of the InboxMessages. Otherwise, return error
+* **completion** - if successful, return the collection of the InboxMessages. Otherwise, return error
 ```
 + (void)loadMessagesWithCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messages, NSError *error))completion
 ```
@@ -101,7 +101,7 @@ Call this method, when the user deletes the list of InboxMessageProtocol manuall
 Subscribe for messages arriving with push notifications. @warning You need to unsubscribe by calling the removeObserver method, if you don't want to receive notifications
 
 
-* **completion** - - return the collection of the InboxMessages.
+* **completion** - return the collection of the InboxMessages.
 ```
 + (id<NSObject>)addObserverForDidReceiveInPushNotificationCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded))completion
 ```
@@ -110,7 +110,7 @@ Subscribe for messages arriving with push notifications. @warning You need to un
 Subscribe for messages arriving when a message is deleted, added, or updated. @warning You need to unsubscribe by calling the removeObserver method, if you don't want to receive notifications
 
 
-* **completion** - - return the collection of the InboxMessages.
+* **completion** - return the collection of the InboxMessages.
 ```
 + (id<NSObject>)addObserverForUpdateInboxMessagesCompletion:(void (^)(NSArray<NSString *> *messagesDeleted,
 NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded,
@@ -121,7 +121,7 @@ NSArray<NSObject<PWInboxMessageProtocol> *> *messagesUpdated))completion
 Unsubscribes from notifications
 
 
-* **observer** - - Unsubscribes observer
+* **observer** - Unsubscribes observer
 ```
 + (void)removeObserver:(id<NSObject>)observer
 ```
