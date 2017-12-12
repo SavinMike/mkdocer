@@ -1,5 +1,5 @@
 ###  <a name=""></a>
-Inbox Message which is read, see [readMessage(String)](inbox/PushwooshInbox.md)
+Inbox Message which is read, see [readMessage(String)](../../inbox/PushwooshInbox.md)
  
 * **Return Value** - true if read otherwise false
 ```
